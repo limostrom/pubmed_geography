@@ -16,14 +16,14 @@ local scatter 1
 cap cd "C:/Users/17036/Dropbox/pubmed_geography/"
 
 
-import excel "Data/Census/US_Census_MSAs_9-2018.xls", clear cellrange(A3:F1271) first case(lower)
+import excel "Data/Census/list2_2020.xls", clear cellrange(A3:F1271) first case(lower)
 	keep cbsacode cbsatitle
 	duplicates drop
 	replace cbsatitle = lower(cbsatitle)
 	tempfile cbsas
 	save `cbsas', replace
 
-use if inlist(year, 1990, 2000, 2010) using Data/Census/usa_00007.dta, clear
+use if inlist(year, 1990, 2000, 2010) using "Data/Census/usa_00007.dta", clear
 	decode sample, gen(newsample)
 	drop sample
 	ren newsample sample
