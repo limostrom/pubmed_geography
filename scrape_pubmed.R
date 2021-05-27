@@ -13,12 +13,15 @@
 #install.packages("stringr")
 #install.packages("rvest")
 #install.packages("tidyverse")
+#install.packages("xml2")
 
-library(tidyverse)
-library(rvest)
 library(stringr)
+library(rvest)
+library(tidyverse)
+library(xml2)
 
-setwd("C:/Users/lmostrom/Documents")
+#setwd("C:/Users/lmostrom/Documents")
+setwd("C:/Users/17036/OneDrive/Documents")
 
 ################################### FUNCTIONS ###################################
 # Pull list of PMIDs to query for individually
@@ -148,11 +151,11 @@ query_names = queries_sub$Query_Name
 PMIDs = sapply(X = queries, FUN = pull_pmids) %>%
 	unname()
 PMIDs = as.numeric(PMIDs)
+PMIDdf = data.frame(pmid=PMIDs)
+write_csv(PMIDdf, path = '../../Dropbox/pubmed_geography/Data/PubMed/raw/QA_pmids.csv')
 
-info = sapply(X = PMIDs[1:1000], FUN = pull_affs)
-master = data.frame(pmid = PMIDs[1:5000], date = info[1,], mesh = info[2,],
+info = sapply(X = PMIDs[15001:20000], FUN = pull_affs)
+master = data.frame(pmid = PMIDs[15001:20000], date = info[1,], mesh = info[2,],
 				journal=info[3,], affil=info[4,], pt = info[5,], gr = info[6,])
 
-write_csv(master, path = '../Dropbox/Amitabh/PubMed/QA_Metadata/raw_1_5000.csv')
-write_csv(master, path = '../Dropbox/pubmed_funding/Data/PubMed/raw/QA_1_5000.csv')
-write_csv(master, path = '../Dropbox/pubmed_geography/Data/PubMed/raw/QA_1_5000.csv')
+write_csv(master, path = '../../Dropbox/pubmed_geography/Data/PubMed/raw/QA_15001_20000.csv')
