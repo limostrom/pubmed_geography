@@ -1,6 +1,7 @@
 # Geography of Scientific Knowledge Production and Venture Capital
+## Amitabh Chandra, Lauren Mostrom
 
-These are the necessary codes for writing a short paper about the cities that produce the most scientific research and receive the most venture capital (VC).
+These are the necessary codes for our short paper about the cities that produce the most scientific research and receive the most venture capital (VC).
 
 It makes use of 3 data sources:  
       * PubMed, for publications by journal and topic (https://dataguide.nlm.nih.gov/edirect/esearch.html)  
