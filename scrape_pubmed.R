@@ -154,8 +154,15 @@ PMIDs = as.numeric(PMIDs)
 PMIDdf = data.frame(pmid=PMIDs)
 write_csv(PMIDdf, path = '../../Dropbox/pubmed_geography/Data/PubMed/raw/QA_pmids.csv')
 
-info = sapply(X = PMIDs[15001:20000], FUN = pull_affs)
-master = data.frame(pmid = PMIDs[15001:20000], date = info[1,], mesh = info[2,],
+info = sapply(X = PMIDs[20001:25000], FUN = pull_affs)
+master = data.frame(pmid = PMIDs[20001:25000], date = info[1,], mesh = info[2,],
 				journal=info[3,], affil=info[4,], pt = info[5,], gr = info[6,])
 
-write_csv(master, path = '../../Dropbox/pubmed_geography/Data/PubMed/raw/QA_15001_20000.csv')
+write_csv(master, path = '../../Dropbox/pubmed_geography/Data/PubMed/raw/Article_Metadata/QA_20001_25000.csv')
+
+
+### ALL JOURNALS, 5% SAMPLE
+PMIDs = read_csv(file = '../../Dropbox/pubmed_geography/Data/PubMed/raw/notQA_pmids.csv')
+
+
+
