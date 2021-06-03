@@ -1,22 +1,18 @@
 /*
 prequin_import.do
-
-Dataset acquired from Prequin (see README.txt)
+Dataset acquired from Prequin (see readme.txt)
 */
 
-global repo "C:/Users/17036/OneDrive/Documents/GitHub/pubmed_geography/"
-global drop "C:/Users/17036/Dropbox/pubmed_geography/"
-
-cap cd "$drop"
 
 *=========================================================================
 *							IMPORT
 *=========================================================================
 local filelist: dir "Data/Preqin" files "Preqin_deals_export*.xlsx"
 
+cd Data/Preqin
 local ii 1
 foreach file of local filelist {
-	import excel "Data/`file'", clear first case(lower)
+	import excel "`file'", clear first case(lower)
 	    if `ii' == 1 {
 			tempfile deals
 			save `deals', replace
@@ -27,7 +23,7 @@ foreach file of local filelist {
 		}
 	local ++ii
 }
-
+cd ../../
 isid dealid // unique
 
 gen dealyear = year(dealdate)
@@ -55,7 +51,7 @@ merge m:1 datem using `cpiaucsl', nogen keep(1 3)
 
 gen dealsizeusdmn_raw = dealsizeusdmn
 
-save "Data/preqin_deals_2000_2019.dta", replace
+save "Data/Preqin/preqin_deals_2000_2019.dta", replace
 *=========================================================================
 
 
@@ -66,7 +62,7 @@ save "Data/preqin_deals_2000_2019.dta", replace
 use dealid dealyear dealsizeusdmn CPIAUCSL2020 CPIAUCSL ///
 	industryclassification primaryindustry ///
 	portfoliocompanycountry portfoliocompanystate portfoliocompanycity ///
-	using "Data/preqin_deals_2000_2019.dta", clear
+	using "Data/Preqin/preqin_deals_2000_2019.dta", clear
 keep if industryclassification == "Healthcare"
 
 replace primaryindustry = "Biotechnology" if primaryindustry == "Biopolymers"

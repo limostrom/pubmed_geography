@@ -1,14 +1,9 @@
 /*
-
 Clean another set of MSA Codes to see if it matches cities better
-
 */
-*Save state names & abbreviations csv as a Stata dataset
-import delimited "state_names_abbrs", clear varn(1)
-save "state_names_abbrs.dta", replace
 
 *Load in list of states w/ FIPS codes
-import excel "Census_FIPS_codes_2017", clear cellrange(A5:G43915) first
+import excel "../Census/all-geocodes-v2019.xlsx", clear cellrange(A5:G43851) first
 
 ren *, lower
 keep if summarylevel == "040"
@@ -17,13 +12,13 @@ keep statecodefips areaname
 ren statecodefips state_fips
 ren areaname state_name
 
-merge m:1 state_name using "state_names_abbrs.dta", nogen keep(1 3) keepus(state_abbr)
+merge m:1 state_name using "../state_names_abbrs.dta", nogen keep(1 3) keepus(state_abbr)
 
 tempfile state_fips
 save `state_fips', replace
 
 *Load in 
-import excel "US_Census_MSAs_9-2018.xls", clear cellrange(A3:F1271) first
+import excel "../Census/list2_2020.xls", clear cellrange(A3:F1271) first
 
 ren *, lower
 
@@ -89,4 +84,4 @@ local state_names zzz "Alabama" "Alaska" "Arizona" "Arkansas" "California" "Colo
 levelsof state_abbr, local(state_abbrs)
 levelsof city, local(city_names)
 
-save MSA_city_state_clean.dta, replace
+save ../MSA_city_state_clean.dta, replace
