@@ -131,7 +131,7 @@ pull_affs = function(id) {
 
 	output = c(date, mesh, journal, affil, pt, gr)
 
-  Sys.sleep(runif(1,0.5,0.7))
+  Sys.sleep(runif(1,0.3,0.5))
   }
   else {
 	output = c("NA", "NA", "NA", "NA", "NA", "NA")
@@ -151,18 +151,22 @@ query_names = queries_sub$Query_Name
 PMIDs = sapply(X = queries, FUN = pull_pmids) %>%
 	unname()
 PMIDs = as.numeric(PMIDs)
-PMIDdf = data.frame(pmid=PMIDs)
-write_csv(PMIDdf, path = '../../Dropbox/pubmed_geography/Data/PubMed/raw/QA_pmids.csv')
+#PMIDdf = data.frame(pmid=PMIDs)
+#write_csv(PMIDdf, path = '../../Dropbox/pubmed_geography/Data/PubMed/raw/QA_pmids.csv')
 
-info = sapply(X = PMIDs[20001:25000], FUN = pull_affs)
-master = data.frame(pmid = PMIDs[20001:25000], date = info[1,], mesh = info[2,],
+info = sapply(X = PMIDs[21001:23000], FUN = pull_affs)
+master = data.frame(pmid = PMIDs[21001:23000], date = info[1,], mesh = info[2,],
 				journal=info[3,], affil=info[4,], pt = info[5,], gr = info[6,])
 
-write_csv(master, path = '../../Dropbox/pubmed_geography/Data/PubMed/raw/Article_Metadata/QA_20001_25000.csv')
+write_csv(master, path = '../../Dropbox/pubmed_geography/Data/PubMed/raw/Article_Metadata/QA_21001_23000.csv')
 
 
 ### ALL JOURNALS, 5% SAMPLE
 PMIDs = read_csv(file = '../../Dropbox/pubmed_geography/Data/PubMed/raw/notQA_pmids.csv')
 
+info = sapply(X = unlist(PMIDs)[1:5000], FUN = pull_affs)
+master = data.frame(pmid = unlist(PMIDs)[1:5000], date = info[1,], mesh = info[2,],
+				journal=info[3,], affil=info[4,], pt = info[5,], gr = info[6,])
 
+write_csv(master, path = '../../Dropbox/pubmed_geography/Data/PubMed/raw/Article_Metadata/notQA_5pct_1_5000.csv')
 
