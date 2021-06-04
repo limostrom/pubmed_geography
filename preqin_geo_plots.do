@@ -214,18 +214,6 @@ foreach firm in "Pf" {
 			egen drugs_vol = rowtotal(deal_volB deal_volP)
 			bys `varname'`grpvar': egen tot = total(tot_vol)
 			bys `varname'`grpvar': egen tot_drugs = total(drugs_vol)
-			
-			/* Graph by Share of VC Dollars
-			graph bar (asis) sh_deal_volB sh_deal_volP sh_deal_volM sh_deal_volH*,  ///
-				stack /*over(dealdecade, sort(dealdecade) lab(angle(60)))*/ ///
-					over(`varname'`grpvar',  sort(tot)  descending) ///
-				title("Industry Breakdown of VC Funding Recipient Firms") ///
-				subtitle("Top MSAs account for `Vpct'% of VC Dollars in US Healthcare") ///
-				legend(symx(small) symy(small) r(1)) yti("Share of VC Dollars in Healthcare (%)" " ") ///
-				bar(1, col(green)) bar(2, col(cranberry)) bar(3, col(purple)) ///
-										bar(4, col(dkorange)) bar(5, col(gs7))
-			graph export "Output/`price'/top10_bars_`firm'`loc_abbr'_%_byInd.png", ///
-				replace as(png) wid(1800) hei(700) */
 				
 			egen rowtot_drugs = rowtotal(sh_drugsB sh_drugsP)
 			egen drug_totsh = total(rowtot_drugs)
@@ -237,7 +225,8 @@ foreach firm in "Pf" {
 				stack over(`varname'`grpvar',  sort(tot_drugs)  descending) ///
 				title("Breakdown of VC-Backed Drugs Start-Ups") ///
 				subtitle("Top MSAs account for `Dpct'% of VC Dollars in Drugs") ///
-				legend(symx(small) symy(small) r(1)) yti("Share of VC Dollars in Drugs (%)" " ") ///
+				legend(symx(small) symy(small) r(1)) ///
+				yti("Share of VC Dollars in Drugs (%)" " ") ///
 				bar(1, col(green)) bar(2, col(cranberry))
 			graph export "Output/`price'/top10_bars_`firm'`loc_abbr'_%_Drugs.png", ///
 				replace as(png) wid(1800) hei(700)
