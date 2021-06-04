@@ -184,6 +184,8 @@ gen len = end-start
 
 gen pub_type = substr(pt_raw, start, len)
 drop start end len
+keep if inlist(pub_type, "Journal Article", "Clinical Study") ///
+		| substr(pub_type, 1, 14) == "Clinical Trial"
 
 gen start = strpos(pub_type, ">") + 1
 replace pub_type = substr(pub_type, start, .)
@@ -199,7 +201,7 @@ if `affl' == 1 | `all' == 1 {
 gen affl_raw = affil
 ren affil affl // to work in included do file
 
-include "$repo/pmid_authaffl_clean.do"
+include $repo/pmid_authaffl_clean.do
 *===============================================================================
 } // end `affl'
 *===============================================================================
@@ -215,6 +217,11 @@ if "`Q'" == "notQA" {
 		append using clean_p`I'
 	}
 }
+if "`Q'" == "oldqa" {
+	forval I = 2/6 {
+		append using clean_p`I'
+	}
+}
 *br
 pause
 *===============================================================================
@@ -225,9 +232,9 @@ order pmid date pub_type pt_na journal journal_abbr journal_na ///
 	affl country state_name state_abbr city zip cbsacode alt_cbsacode _merge ///
 	nterms mesh*
 
-forval i = 1/42 {
+forval i = 1/50 {
 	local j = `i' + 1
-	forval k = `j'/42 {
+	forval k = `j'/50 {
 		replace mesh`i' = mesh`k' if mesh`i' == "" & mesh`k' != ""
 		replace mesh`k' = "" if mesh`k' == mesh`i'
 	}
@@ -235,6 +242,10 @@ forval i = 1/42 {
 
 compress *
 pause
-drop mesh12-mesh42
+drop mesh15-mesh50
+duplicates drop
+duplicates tag pmid, gen(dup)
+sort pmid affl
+bys pmid: drop if _n == 2 & dup
 
 save "master_`Q'_clean.dta", replace

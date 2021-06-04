@@ -13,7 +13,7 @@ local btc 0 // imports the BTC CSVs and appends them together
 local master 1 // imports the full article metadata files and prepares
 					// master dataset
 	local master_clean 1
-local merge 1 // merges PMID lists to assemble final dataset
+local merge 0 // merges PMID lists to assemble final dataset
 
 *===============================================================================
 *						IMPORT & APPEND
