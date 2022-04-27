@@ -26,7 +26,7 @@ cd $drop
 	science publication groups, the PMID list for the 5% sample of publications
 	in all journals, and the dataset of publication metadata including MeSH terms
 	and author affiliations --------------------------------------------------*/
-*include $repo/pmidlist_assemble.do
+include $repo/pmidlist_assemble.do
 	// this do file calls master_clean.do, pmid_authaffl_clean.do,
 	// clean_msa_codes2.do, and country_tags.do
 

@@ -91,8 +91,8 @@ pull_affs = function(id) {
 	# Form URL using the term
 	  url = paste0('https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id=',
 				id,
-			   '&retmode=xml')
-	#, '&api_key=ae06e6619c472ede6b6d4ac4b5eadecdb209')
+			   '&retmode=xml',
+			   '&api_key=ae06e6619c472ede6b6d4ac4b5eadecdb209')
 	  # Query PubMed and save result
 	  xml = read_xml(url)
 
@@ -154,11 +154,12 @@ PMIDs = as.numeric(PMIDs)
 #PMIDdf = data.frame(pmid=PMIDs)
 #write_csv(PMIDdf, path = '../../Dropbox/pubmed_geography/Data/PubMed/raw/QA_pmids.csv')
 
-info = sapply(X = PMIDs[21001:23000], FUN = pull_affs)
-master = data.frame(pmid = PMIDs[21001:23000], date = info[1,], mesh = info[2,],
+info = sapply(X = PMIDs[29001:31000], FUN = pull_affs)
+
+master = data.frame(pmid = PMIDs[29001:31000], date = info[1,], mesh = info[2,],
 				journal=info[3,], affil=info[4,], pt = info[5,], gr = info[6,])
 
-write_csv(master, path = '../../Dropbox/pubmed_geography/Data/PubMed/raw/Article_Metadata/QA_21001_23000.csv')
+write_csv(master, path = '../../Dropbox/pubmed_geography/Data/PubMed/raw/Article_Metadata/QA_29001_31000.csv')
 
 
 ### ALL JOURNALS, 5% SAMPLE

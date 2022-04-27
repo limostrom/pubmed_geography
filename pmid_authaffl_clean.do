@@ -459,10 +459,27 @@ replace country = "United Kingdom" if inlist(city, "Bristol", "Cambridge", "Manc
 replace country = "United Kingdom" if city == "Victoria" & strpos(affl, "Victoria Infirmary") > 0
 replace country = "United Kingdom" if (strpos(affl, "Ackton Hospital") > 0 | ///
 			strpos(affl, "Addenbrooke's Hospital") > 0 | ///
-			strpos(affl, "Brunel University") > 0 | ///
 			strpos(affl, "Aberdeen Royal Infirmary") > 0 | ///
+			strpos(affl, "Bath and Wessex Orthopaedic Hospital") > 0 | ///
+			strpos(affl, "Birmingham and Midland Hospital for Women") > 0 | ///
+			strpos(affl, "Brunel University") > 0 | ///
+			strpos(affl, "Falkirk and District Royal Infirmary") > 0 | ///
+			strpos(affl, "Gloucestershire Royal Hospital") > 0 | ///
+			strpos(affl, "Hull Royal Infirmary") > 0 | ///
+			strpos(affl, "Plymouth General Hospital") > 0 | ///
+			strpos(affl, "Royal United Hospital") > 0 | ///
+			strpos(affl, "Southampton General Hospital") > 0 | ///
+			strpos(affl, "Stockton-on-Tees") > 0 | ///
+			strpos(affl, "University of Aberdeen") > 0 | ///
 			strpos(affl, "University of Oxford") > 0 | ///
-			(strpos(affl, "Ipswich Hospital") > 0 & strpos(affl, "Suffolk") > 0)) ///
+			(strpos(affl, "Cumberland Infirmary") > 0 & strpos(affl, "Carlisle") > 0)) | ///
+			(strpos(affl, "Ipswich Hospital") > 0 & strpos(affl, "Suffolk") > 0)) | ///
+			(strpos(affl, "St") > 0 & strpos(affl, "Mary") > 0 & strpos(affl, "Portsmouth") > 0) | ///
+			(strpos(affl, "St") > 0 & strpos(affl, "Luke") > 0 & strpos(affl, "Bradford") > 0) | ///
+			(strpos(affl, "University of Southampton") > 0 & strpos(affl, "Princess Anne") > 0)) ///
+			& state_name == "" & state_abbr == "" & country == ""
+replace country = "Ireland" if (strpos(affl, "Regional Hospital") > 0 & ///
+			strpos(affl, "Cork") > 0 & strpos(affl, "Fire") > 0) ///
 			& state_name == "" & state_abbr == "" & country == ""
 replace country = "Canada" if strpos(affl, "Hamilton") > 0 & ///
 			(strpos(affl, "ON") + strpos(affl, "Ont.") > 0)
@@ -473,7 +490,9 @@ replace country = "France" if strpos(affl, "Institut de Chimie") > 0 & ///
 			state_name == "" & state_abbr == "" & country == ""
 replace country = "Italy" if strpos(affl, "University of Florence") > 0 & ///
 			state_name == "" & state_abbr == "" & country == ""
-
+			
+			
+sdf
 	
 
 

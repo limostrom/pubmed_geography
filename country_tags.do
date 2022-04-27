@@ -76,8 +76,8 @@ local countries zzz "Afghanistan" "Algeria" "Andorra" "Angola" "Argentina" "Buen
 			"United Arab Emirates" "Ukraine" "Uruguay"
 			"UK" "Alverstoke" "Belfast" "Buckinghamshire" "Cheshire" "Glasgow" "Harrow"
 					"Hertfordshire" "Kent" "Leeds" "Leicester" "Liverpool" "London"
-					"Newcastle" "Nottingham" "Salford" "Sheffield"
-					"Staffordshire" "Surrey" "Swansea" "Whitchurch" "U.K." "United Kingdom"
+					"Lancashire" "Newcastle" "Nottingham" "Salford" "Sheffield" "Staffordshire"
+					"Surrey" "Swansea" "Windsor" "Whitchurch" "U.K." "United Kingdom"
 			"Uzbekistan" "Venezuela" "Caracas" "Viet Nam" "Vietnam" "Veitnam"
 			"West Indies" "Wales" "Cardiff"
 			"West Bank" "Nablus" "Birzeit" "Ramallah" "Yemen" "Yugoslavia" "Zaire" "Zambia" 
@@ -198,7 +198,7 @@ foreach c of local countries {
 										"Cheshire", "Glasgow", "Harrow", "Hertfordshire", "Kent", "Leeds") ///
 										| inlist(country, "Leicester", "Liverpool", "London", "Newcastle", ///
 										"Nottingham", "Sheffield", "Staffordshire", "Surrey") ///
-										| inlist(country, "Swansea", "Whitchurch")
+										| inlist(country, "Swansea", "Whitchurch", "Salford", "Lancashire")
 	replace country = "Vietnam" if inlist(country, "Vietnam", "Viet Nam", "Veitnam")
 	replace country = "West Bank" if inlist(country, "West Bank", "Nablus", "Birzeit", "Ramallah")
 	replace country = "Zimbabwe" if inlist(country, "Zimbabwe", "Harare")
